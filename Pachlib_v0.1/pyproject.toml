@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pachlib"
+version = "0.1.0"
+description = "A Python library full of useful tools, such as SSH, loading bars, and dynamic library importing (with pip). - github.com/Pratschi/pachlib"
+readme = "README.md"
+authors = [{ name="Pratschi", email="pratschigamer@gmail.com" }]
+license = { text = "BSD-3-Clause" }
+keywords = ["python", "ejemplo", "libreria"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: BSD License",
+  "Operating System :: OS Independent"
+]
+requires-python = ">=3.7"
+dependencies = []
+
+[project.urls]
+"user" = "github.com/Pratschi"
+"repository" = "github.com/Pratschi/pachlib"
