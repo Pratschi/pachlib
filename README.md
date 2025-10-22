@@ -2,7 +2,7 @@
 A Python library full of useful tools, such as SSH, loading bars, and dynamic library importing (with pip).
 
 # How to add it to your project?
-**NOTE: When pachlib is mentioned in this section, it's referring to the pachlib folder INSIDE the Pachlib vX.X folder.**
+**NOTE: When pachlib is mentioned in this section, it's referring to the pachlib folder INSIDE the Pachlib_vX.X folder.**
 **There are more ways to install pachlib than these ones, but in the future it might be directly installed with pip.**
 
 ## 1. Same folder import
