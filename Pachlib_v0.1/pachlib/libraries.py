@@ -54,3 +54,18 @@ def updatepip():
 
     except Exception as e:
         raise ValueError(f"ERROR: Could not update or install pip: {e}")
+
+def pipstatus():
+    """
+    Check if pip is installed or requires an update.
+    Returns True if is installed, None if can be updated and False if it's not installed.
+    """
+    import subprocess, sys
+    try:
+        result = subprocess.run([sys.executable, "-m", "pip", "--version"], capture_output=True, text=True)
+        if result.returncode == 0:
+            return True
+        elif "Would install" not in upgrade_check.stdout:
+            return None
+        else:
+            return False
