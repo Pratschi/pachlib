@@ -21,7 +21,7 @@ def get(showprogress:bool=True, installed_ok=False, file_dir=None, version=None)
         Exception: If wrong version was given.
         pachlib: The Pachlib library.
     """
-    import urllib.requests, os, json
+    import urllib.request, os, json
     try:
         os.mkdir("pachlib")
     except OSError:
