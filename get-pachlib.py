@@ -41,7 +41,7 @@ def get(showprogress:bool=True, installed_ok=False, file_dir=None, version=None)
         print("Select version to download:")
         number = 0
         for i in receivedversions:
-            if i["name"] not in ["LICENSE", "README.md"]:
+            if i["name"] not in ["LICENSE", "README.md", "get-pachlib.py"]:
                 number += 1
                 versions[str(number)] = i["name"]
                 print(f"[{number}] {i['name']}")
