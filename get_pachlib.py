@@ -21,7 +21,7 @@ def get(showprogress:bool=True, installed_ok=False, file_dir=None, version=None)
         Exception: If wrong version was given.
         pachlib: The Pachlib library.
     """
-    import requests, os, json
+    import urrlib.requests, os, json
     try:
         os.mkdir("pachlib")
     except OSError:
@@ -33,7 +33,7 @@ def get(showprogress:bool=True, installed_ok=False, file_dir=None, version=None)
 
     versions = {}
     finalversions = {}
-    receivedversions = requests.get("https://api.github.com/repos/Pratschi/pachlib/contents").json()
+    receivedversions = urllib.request.urlopen("https://api.github.com/repos/Pratschi/pachlib/contents").read().decode("utf-8").json()
     number = 0
 
     if version is not None:
@@ -56,7 +56,7 @@ def get(showprogress:bool=True, installed_ok=False, file_dir=None, version=None)
                 raise Exception("Please select a correct version!")
         else:
             raise Exception("Please enter a number!")
-        toinstall = requests.get(receivedversions[finalversions[selectedversion][selectedversion]]["_links"]["git"]).json()
+        toinstall = urllib.request.urlopen(receivedversions[finalversions[selectedversion][selectedversion]]["_links"]["git"]).read().decode("utf-8").json()
         
     else:
         for i in receivedversions:
@@ -67,28 +67,28 @@ def get(showprogress:bool=True, installed_ok=False, file_dir=None, version=None)
                 break
         if not selectedversion:
             raise Exception(f"Unknown Pachlib version to install '{version}'")
-        toinstall = requests.get(receivedversions[version]["_links"]["git"].json())
+        toinstall = urllib.request.urlopen(receivedversions[version]["_links"]["git"].read().decode("utf-8").json())
 
     for i in toinstall:
         if i["name"] == "pachlib":
-            toinstall = requests.get(i["url"]).json()
+            toinstall = urllib.request.urlopen(i["url"]).read().decode("utf-8").json()
             break
 
     print("\nDownloading files...")
     number = 0
     with open("pachlib/LICENSE", "w") as openfile:
-        openfile.write(requests.get("https://raw.githubusercontent.com/Pratschi/pachlib/refs/heads/main/LICENSE").text)
+        openfile.write(urllib.request.urlopen("https://raw.githubusercontent.com/Pratschi/pachlib/refs/heads/main/LICENSE").read().decode("utf-8"))
     print(f"Downloaded LICENSE (1/{len(toinstall) + 3})")
     with open("pachlib/README.md", "w") as openfile:
-        openfile.write(requests.get(f"https://raw.githubusercontent.com/Pratschi/pachlib/refs/heads/main/README.md").text)
+        openfile.write(urllib.request.urlopen(f"https://raw.githubusercontent.com/Pratschi/pachlib/refs/heads/main/README.md").read().decode("utf-8"))
     print(f"Downloaded README (2/{len(toinstall) + 3})")
     with open("pachlib/VERSION_README.md", "w") as openfile:
-        openfile.write(requests.get(f"https://raw.githubusercontent.com/Pratschi/pachlib/refs/heads/main/{versions[selectedversion]}/pachlib/README.md").text)
+        openfile.write(urllib.request.urlopen(f"https://raw.githubusercontent.com/Pratschi/pachlib/refs/heads/main/{versions[selectedversion]}/pachlib/README.md").read().decode("utf-8"))
     print(f"Downloaded version README (3/{len(toinstall) + 3})")
     for i in toinstall:
         number += 1
         with open(f"pachlib/{i['name']}", "w") as openfile:
-            openfile.write(requests.get(f"https://raw.githubusercontent.com/Pratschi/pachlib/refs/heads/main/{versions[selectedversion]}/pachlib/{i['name']}").text)
+            openfile.write(urllib.request.urlopen(f"https://raw.githubusercontent.com/Pratschi/pachlib/refs/heads/main/{versions[selectedversion]}/pachlib/{i['name']}").read().decode("utf-8"))
         print(f"Downloaded {i['name']} ({number + 3}/{len(toinstall) + 3})")
     import pachlib
     return pachlib
