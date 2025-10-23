@@ -26,14 +26,14 @@ def get(showprogress:bool=True, installed_ok=False, file_dir=None, version=None)
         os.mkdir("pachlib")
     except OSError:
         if os.path.isdir("pachlib"):
-            if installed_ok or not input("It seems pachlib is already installed, do you want to reinstall it (y/n)?").lower() == "y":
+            if installed_ok or not input("It seems pachlib is already installed, do you want to reinstall it (y/n)? ").lower() == "y":
                 return None
         else:
             raise Exception("Could not create pachlib directory!")
 
     versions = {}
     finalversions = {}
-    receivedversions = urllib.request.urlopen("https://api.github.com/repos/Pratschi/pachlib/contents").read().decode("utf-8").json()
+    receivedversions = urllib.request.urlopen("https://api.github.com/repos/Pratschi/pachlib/contents").read().decode("utf-8").json.loads()
     number = 0
 
     if version is not None:
@@ -56,7 +56,7 @@ def get(showprogress:bool=True, installed_ok=False, file_dir=None, version=None)
                 raise Exception("Please select a correct version!")
         else:
             raise Exception("Please enter a number!")
-        toinstall = urllib.request.urlopen(receivedversions[finalversions[selectedversion][selectedversion]]["_links"]["git"]).read().decode("utf-8").json()
+        toinstall = urllib.request.urlopen(receivedversions[finalversions[selectedversion][selectedversion]]["_links"]["git"]).read().decode("utf-8").json.loads()
         
     else:
         for i in receivedversions:
@@ -67,11 +67,11 @@ def get(showprogress:bool=True, installed_ok=False, file_dir=None, version=None)
                 break
         if not selectedversion:
             raise Exception(f"Unknown Pachlib version to install '{version}'")
-        toinstall = urllib.request.urlopen(receivedversions[version]["_links"]["git"].read().decode("utf-8").json())
+        toinstall = urllib.request.urlopen(receivedversions[version]["_links"]["git"].read().decode("utf-8").json.loads())
 
     for i in toinstall:
         if i["name"] == "pachlib":
-            toinstall = urllib.request.urlopen(i["url"]).read().decode("utf-8").json()
+            toinstall = urllib.request.urlopen(i["url"]).read().decode("utf-8").json.loads()
             break
 
     print("\nDownloading files...")
