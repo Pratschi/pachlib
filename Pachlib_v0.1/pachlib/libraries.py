@@ -58,7 +58,7 @@ def updatepip():
 def pipstatus():
     """
     Check if pip is installed or requires an update.
-    Returns True if is installed, None if can be updated and False if it's not installed.
+    Returns True if is installed, None if can be updated and False if it's not installed or an error ocurred while detection.
     """
     import subprocess, sys
     try:
@@ -69,3 +69,5 @@ def pipstatus():
             return None
         else:
             return False
+    except Exception:
+        return False
