@@ -10,6 +10,5 @@ Instead of donwloading get_pachlib.py, you can also copy this code that installs
 <br>`    with urllib.request.urlopen('https://raw.githubusercontent.com/Pratschi/pachlib/refs/heads/main/get_pachlib.py') as data:`
 <br>`        openfile.write(str(data.read().decode("utf-8")))`
 <br>`import get_pachlib`
-<br>`globals()["pachlib"] = get_pachlib.get()`
 
 <br>**In the future, it will be available to download with `pip install pachlib`**
