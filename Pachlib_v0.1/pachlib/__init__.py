@@ -212,7 +212,7 @@ def system():
     system["os"] = "MacOS"
     system["version"] = platform.mac_ver()[0]
   else:
-    system = platform.system()
+    system["os"] = platform.system()
     system["version"] = platform.version()
     system["base_os"] = "Unknown"
 
